@@ -36,14 +36,14 @@ public class Sudoku {
         }
     }
 
-    private byte getRandom(){
-        return  0;
-    }
-
     /**
      * 解数独
      */
     public void solution(){
+    }
+
+    private byte getRandom(){
+        return  0;
     }
 
     /**
