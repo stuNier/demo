@@ -26,4 +26,4 @@ nbdist/
 logs
 
 # Generated files
-*/out/
+/out/
