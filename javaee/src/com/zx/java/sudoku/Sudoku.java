@@ -43,7 +43,7 @@ public class Sudoku {
     }
 
     private byte getRandom(){
-        return  0;
+        return  1;
     }
 
     /**
