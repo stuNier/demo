@@ -4,7 +4,7 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * Title: Racer
- * Description: TODO
+ * Description: TODO 多线程赛跑
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *

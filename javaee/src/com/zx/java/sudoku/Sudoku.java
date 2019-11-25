@@ -2,7 +2,7 @@ package com.zx.java.sudoku;
 
 /**
  * Title: Sudoku
- * Description: TODO
+ * Description: TODO 数独
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
