@@ -10,20 +10,12 @@ import lombok.Data;
  *
  * @author zhengxin@thunisoft.com
  * @version 1.0
- * @date 2019/9/10 15:02
+ * date 2019/9/10 15:02
  */
 @Data
 public class User {
 
-    private long id;
+    private String account;
 
-    private String name;
-
-    private String xb;
-
-    private int nl;
-
-    private String jg;
-
-    private String mz;
+    private String password;
 }

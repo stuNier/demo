@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="description" content="">
+    <title>index</title>
+    <base th:href="@{/}" />
+</head>
+<body>
+<div id="app">
+    <p>welcome</p>
+    <button @click="loginOut">login out</button>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/common/vue.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/common/jquery-1.12.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/loginOut/loginOut.js}"></script>
+</html>

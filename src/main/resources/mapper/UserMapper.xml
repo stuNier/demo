@@ -3,19 +3,12 @@
 <mapper namespace="com.zx.demo.mapper.UserMapper">
 
     <resultMap id="user" type="com.zx.demo.bean.User">
-        <id property="id" column="n_id"></id>
-        <result property="name" column="c_name"></result>
-        <result property="xb" column="c_xb"></result>
-        <result property="nl" column="n_nl"></result>
-        <result property="jg" column="c_jg"></result>
-        <result property="mz" column="c_mz"></result>
+        <id property="account" column="account"/>
+        <result property="password" column="password"/>
     </resultMap>
 
-    <select id="queryById" resultMap="user" parameterType="java.lang.Long">
-        select n_id, c_name, c_xb, n_nl, c_jg, c_mz from t_user where n_id = #{id} and c_sfyx = "1"
+    <select id="queryByAccount" resultMap="user" parameterType="java.lang.String">
+        select account, password from user where account = #{account}
     </select>
 
-    <select id="queryByJg" resultMap="user" parameterType="java.lang.String">
-        select n_id, c_name, c_xb, n_nl, c_jg, c_mz from t_user where c_jg = #{jg} and c_sfyx = "1"
-    </select>
 </mapper>

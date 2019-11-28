@@ -1,6 +1,8 @@
 package com.zx.java.algorithm;
 
 import com.zx.java.algorithm.greedyAlgorithm.GreedyAlgorithmJumpGame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -16,6 +18,9 @@ import java.util.*;
  */
 public class AlgorithmTest {
 
+    private static Logger logger = LoggerFactory.getLogger(AlgorithmTest.class);
+
+
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
         String[] str = reader.nextLine().split("\\s+");
@@ -26,11 +31,10 @@ public class AlgorithmTest {
                 position[i] = Integer.parseInt(str[i]);
             }
         }catch (NumberFormatException e){
-            System.out.print("input error...");
+            logger.info("input error...");
             return;
         }
         GreedyAlgorithmJumpGame game = new GreedyAlgorithmJumpGame(position);
         game.print();
-        System.out.print(game.jump());
     }
 }

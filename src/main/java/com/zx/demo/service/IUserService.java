@@ -1,28 +1,18 @@
 package com.zx.demo.service;
 
-import com.zx.demo.common.ResultUtil;
-import org.springframework.stereotype.Service;
+import com.zx.demo.bean.User;
 
 /**
- * Title: IUserService
+ * Title: UserService
  * Description: TODO
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
  * @author zhengxin@thunisoft.com
  * @version 1.0
- * @date 2019/9/10 15:04
+ * date 2019/11/28 15:12
  */
-@Service
 public interface IUserService {
-    /**
-     * @param param 查询参数
-     * @return
-     * @author: zhengxin@thunisoft.com
-     * @date: 19-09-10 15:08
-     * @version 1.0
-     */
-    ResultUtil queryById(String param);
 
-    ResultUtil queryByJg(String jg);
+    User queryByAccount(String account);
 }

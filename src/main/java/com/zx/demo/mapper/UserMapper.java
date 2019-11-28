@@ -3,8 +3,6 @@ package com.zx.demo.mapper;
 import com.zx.demo.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
 /**
  * Title: UserMapper
  * Description: TODO
@@ -13,18 +11,16 @@ import java.util.List;
  *
  * @author zhengxin@thunisoft.com
  * @version 1.0
- * @date 2019/9/10 15:07
+ * date 2019/9/10 15:07
  */
 @Mapper
 public interface UserMapper {
     /**
-     * @param id
-     * @return
-     * @author: zhengxin@thunisoft.com
-     * @date: 19-09-10 15:07
-     * @version 1.0
+     * @param account 账号
+     * @return User
+     * author: zhengxin@thunisoft.com
+     * date: 19-09-10 15:07
+     * version 1.0
      */
-    User queryById(long id);
-
-    List<User> queryByJg(String jg);
+    User queryByAccount(String account);
 }

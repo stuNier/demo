@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="description" content="">
+    <title>login</title>
+    <link rel="stylesheet" th:href="@{/css/login/login.css}" />
+    <base th:href="@{/}" />
+</head>
+<body>
+<div id="app">
+    <p id="url" hidden>[[${url}]]</p>
+    <label>
+        <select v-model="user.account">
+            <option value="A">A</option>
+            <option value="B">B</option>
+        </select>
+        <input type="password" v-model="user.password">
+    </label>
+    <button @click="submit">submit</button>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/common/vue.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/common/jquery-1.12.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/login/login.js}"></script>
+</html>
