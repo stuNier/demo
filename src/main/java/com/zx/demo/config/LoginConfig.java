@@ -1,6 +1,6 @@
 package com.zx.demo.config;
 
-import com.zx.demo.config.interceptor.LoginHandlerInterceptor;
+import com.zx.demo.interceptor.LoginHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;

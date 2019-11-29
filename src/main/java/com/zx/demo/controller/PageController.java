@@ -1,5 +1,8 @@
 package com.zx.demo.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,11 +24,14 @@ import java.util.Map;
  * date 2019/11/25 17:30
  */
 @Controller
+@RequestMapping("/page")
+@Api(tags = "页面跳转接口", description = "实现页面跳转")
 public class PageController {
 
     private Logger logger = LoggerFactory.getLogger(PageController.class);
 
-    @RequestMapping("/page/{page}")
+    @ApiOperation("传入挑战页面参数")
+    @RequestMapping("/{page}")
     public ModelAndView toPage(@PathVariable String page, HttpServletRequest request){
         Map<String, String[]> paramsMap = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : paramsMap.entrySet()) {

@@ -1,4 +1,4 @@
-package com.zx.demo.config.interceptor;
+package com.zx.demo.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
