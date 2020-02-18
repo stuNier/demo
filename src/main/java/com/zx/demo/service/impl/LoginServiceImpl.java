@@ -5,6 +5,7 @@ import com.zx.demo.service.ILoginService;
 import com.zx.demo.service.IUserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -38,18 +39,20 @@ public class LoginServiceImpl implements ILoginService {
     }
 
     @Override
-    public void login(HttpServletRequest request, HttpServletResponse response, User user) {
+    public Object login(HttpServletRequest request, HttpServletResponse response, User user) {
+        System.out.println(user.toString());
         User result = userService.queryByAccount(user.getAccount());
-        if(!result.getPassword().equals(user.getPassword()))
-            return;
+        if(null==result || !result.getPassword().equals(user.getPassword()))
+            return ResponseEntity.ok("failed");
         Jedis jedis = jedisPool.getResource();
         String token = DigestUtils.md5Hex(user.getAccount()+new Date().toString());
         jedis.set(token, user.getAccount());
-        jedis.expire(token, 60);
+        jedis.expire(token, 600);
         jedis.close();
         Cookie cookie = new Cookie("userAccount",token);
         cookie.setPath("/");
         response.addCookie(cookie);
+        return ResponseEntity.ok("success");
     }
 
     @Override

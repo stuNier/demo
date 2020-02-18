@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,10 +41,9 @@ public class LoginController {
 
     @ApiOperation("用户登录接口")
     @RequestMapping("/login")
-    public Object login(HttpServletRequest request, HttpServletResponse response, User user){
-        loginService.login(request, response, user);
-        logger.info(request.getParameter("url"));
-        return request.getParameter("url");
+    public Object login(HttpServletRequest request, HttpServletResponse response,@RequestBody User user){
+
+        return ResponseEntity.ok(loginService.login(request, response, user));
     }
 
     @ApiOperation("用户登出接口")

@@ -11,5 +11,8 @@ package com.zx.java.thread;
  * @date 2019/10/30 10:47
  */
 public class GlobalValue {
-    public static String VAR;
+    private GlobalValue() {
+    }
+
+    public static String var;
 }

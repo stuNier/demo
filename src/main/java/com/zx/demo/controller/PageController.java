@@ -1,7 +1,6 @@
 package com.zx.demo.controller;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +29,7 @@ public class PageController {
 
     private Logger logger = LoggerFactory.getLogger(PageController.class);
 
-    @ApiOperation("传入挑战页面参数")
+    @ApiOperation("传入跳转页面参数")
     @RequestMapping("/{page}")
     public ModelAndView toPage(@PathVariable String page, HttpServletRequest request){
         Map<String, String[]> paramsMap = request.getParameterMap();

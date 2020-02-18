@@ -1,6 +1,6 @@
 package com.zx.java.algorithm;
 
-import com.zx.java.algorithm.greedyAlgorithm.GreedyAlgorithmJumpGame;
+import com.zx.java.algorithm.greedyalgorithm.GreedyAlgorithmJumpGame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

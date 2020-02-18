@@ -24,6 +24,7 @@ var vm = new Vue({
                 url: "/demo/user/login",
                 data: _this.user,
                 type: "post",
+                dataType:"json",
                 timeout: 3*60*1000,
                 success: function(result){
                     console.log(result);

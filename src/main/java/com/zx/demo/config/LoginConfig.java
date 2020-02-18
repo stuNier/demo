@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @version 1.0
  * date 2019/11/27 16:07
  */
-@Configuration
+//@Configuration
 public class LoginConfig implements WebMvcConfigurer{
 
     private final LoginHandlerInterceptor loginHandlerInterceptor;
@@ -32,9 +32,9 @@ public class LoginConfig implements WebMvcConfigurer{
         InterceptorRegistration registration = registry.addInterceptor(loginHandlerInterceptor);
         registration.addPathPatterns("/**");
         registration.excludePathPatterns(                         //添加不拦截路径
-                "/**/login",            //登录
-                "/**/*.js",              //js静态资源
-                "/**/*.css",             //css静态资源
+                "/**/login",
+                "/**/*.js",
+                "/**/*.css",
                 "/**/*.woff",
                 "/**/*.ttf"
         );

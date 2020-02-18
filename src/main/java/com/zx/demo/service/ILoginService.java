@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface ILoginService {
 
-    void login(HttpServletRequest request, HttpServletResponse response, User user);
+    Object login(HttpServletRequest request, HttpServletResponse response, User user);
 
     void loginOut(HttpServletRequest request);
 }

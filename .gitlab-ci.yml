@@ -1,0 +1,11 @@
+stages:
+  - ci
+
+ci_test_job:
+  stage: ci
+  tags:
+    - demo
+  script:
+    - source /etc/profile
+    - source /home/scripts/package.sh $(pwd)
+    - source /home/scripts/start.sh $(pwd)

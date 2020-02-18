@@ -3,6 +3,7 @@ package com.zx.demo.controller.threadController;
 import com.zx.demo.bean.thread.ThreadA;
 import com.zx.demo.bean.thread.ThreadB;
 import com.zx.demo.common.GlobalValue;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/thread")
+@Api(tags = "线程测试")
 public class ThreadController {
 
     private ThreadA tA = new ThreadA();

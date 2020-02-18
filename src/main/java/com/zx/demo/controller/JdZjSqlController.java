@@ -2,6 +2,7 @@ package com.zx.demo.controller;
 
 import com.zx.demo.common.FileUtils;
 import com.zx.demo.common.PoiUtils;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import java.util.List;
  * date 2019/9/16 11:03
  */
 @RestController
+@Api(tags = "读取excel生成sql")
 public class JdZjSqlController {
 
     @Autowired
