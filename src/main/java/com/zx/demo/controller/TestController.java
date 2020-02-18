@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TestController {
 
-    @RequestMapping(value = "/get/object", method = RequestMethod.GET)
+    @GetMapping(value = "/get/object")
     public Object getRequest(@RequestBody Object user){
         return user;
     }
 
-    @RequestMapping(value = "/post/object", method = RequestMethod.POST)
+    @PostMapping(value = "/post/object")
     public Object postRequestObject(@RequestBody User user){
         return user;
     }
 
-    @RequestMapping(value = "/post/param", method = RequestMethod.POST)
+    @PostMapping(value = "/post/param")
     public Object postRequestParam(@RequestParam("user") User user){
         return user;
     }

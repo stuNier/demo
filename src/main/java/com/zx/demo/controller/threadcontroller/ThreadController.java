@@ -1,15 +1,16 @@
-package com.zx.demo.controller.threadController;
+package com.zx.demo.controller.threadcontroller;
 
 import com.zx.demo.bean.thread.ThreadA;
 import com.zx.demo.bean.thread.ThreadB;
 import com.zx.demo.common.GlobalValue;
 import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Title: ThreadController
- * Description: TODO
+ * Description: ThreadController
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -29,7 +30,7 @@ public class ThreadController {
     /**
      * 随机执行
      */
-    @RequestMapping("/random")
+    @GetMapping("/random")
     public void threadTest(){
         Thread threadA = new Thread(tA,"ThreadA");
         Thread threadB = new Thread(tB,"ThreadB");
@@ -37,7 +38,7 @@ public class ThreadController {
         threadB.start();
     }
 
-    @RequestMapping("getvar")
+    @GetMapping("getvar")
     public Object getVar(){
         return GlobalValue.theadVar;
     }

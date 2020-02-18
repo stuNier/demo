@@ -4,20 +4,17 @@ import com.zx.demo.bean.User;
 import com.zx.demo.service.ILoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * Title: LoginController
- * Description: TODO
+ * Description: 登录接口Controller
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -25,14 +22,13 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * date 2019/11/27 14:26
  */
+@Slf4j
 @RestController
-@Api(tags = "用户登录登出", description = "用户登录登出接口")
+@Api(tags = "用户登录登出")
 @RequestMapping("/user")
 public class LoginController {
 
     private final ILoginService loginService;
-
-    private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     public LoginController(ILoginService loginService) {
@@ -40,14 +36,13 @@ public class LoginController {
     }
 
     @ApiOperation("用户登录接口")
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public Object login(HttpServletRequest request, HttpServletResponse response,@RequestBody User user){
-
         return ResponseEntity.ok(loginService.login(request, response, user));
     }
 
     @ApiOperation("用户登出接口")
-    @RequestMapping("/loginOut")
+    @GetMapping("/loginOut")
     public Object loginOut(HttpServletRequest request){
         loginService.loginOut(request);
         return ResponseEntity.ok("success");

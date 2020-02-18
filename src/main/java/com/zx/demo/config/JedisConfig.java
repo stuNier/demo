@@ -11,7 +11,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * Title: JedisConfig
- * Description: TODO
+ * Description: Jedis配置
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *

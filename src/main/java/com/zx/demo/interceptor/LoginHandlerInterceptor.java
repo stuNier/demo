@@ -51,7 +51,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             if(cookie.getName().equals("userAccount")){
                 String token = cookie.getValue();
                 Jedis jedis = jedisPool.getResource();
-                if(jedis.exists(token)){
+                if(Boolean.TRUE.equals(jedis.exists(token))){
                     jedis.close();
                     return true;
                 }

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Title: LoginConfig
- * Description: TODO
+ * Description: 登录拦截器配置
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *

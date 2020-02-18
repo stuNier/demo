@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 /**
  * Title: PageController
- * Description: TODO
+ * Description: 页面跳转controller
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -24,13 +25,13 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/page")
-@Api(tags = "页面跳转接口", description = "实现页面跳转")
+@Api(tags = "页面跳转接口")
 public class PageController {
 
     private Logger logger = LoggerFactory.getLogger(PageController.class);
 
     @ApiOperation("传入跳转页面参数")
-    @RequestMapping("/{page}")
+    @GetMapping("/{page}")
     public ModelAndView toPage(@PathVariable String page, HttpServletRequest request){
         Map<String, String[]> paramsMap = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : paramsMap.entrySet()) {
