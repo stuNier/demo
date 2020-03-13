@@ -4,7 +4,7 @@ import com.zx.demo.bean.User;
 
 /**
  * Title: UserService
- * Description: TODO
+ * Description: IUserService
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -14,5 +14,13 @@ import com.zx.demo.bean.User;
  */
 public interface IUserService {
 
+    /**
+     * 查询用户
+     * @param account account
+     * @return User
+     * @author: zhengxin-3@thunisoft.com
+     * date: 20-02-19 9:29
+     * @version 1.0
+     */
     User queryByAccount(String account);
 }

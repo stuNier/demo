@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Title: UserService
- * Description: TODO
+ * Description: UserServiceImpl
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * date 2019/11/28 15:14
  */
 @Service
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
