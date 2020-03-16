@@ -31,7 +31,7 @@ public class PageController {
     private Logger logger = LoggerFactory.getLogger(PageController.class);
 
     @ApiOperation("传入跳转页面参数")
-    @GetMapping("/{page}")
+    @RequestMapping("/{page}")
     public ModelAndView toPage(@PathVariable String page, HttpServletRequest request){
         Map<String, String[]> paramsMap = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : paramsMap.entrySet()) {

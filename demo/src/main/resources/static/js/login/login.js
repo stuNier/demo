@@ -22,13 +22,15 @@ var vm = new Vue({
                 _this.user.url = url;
             $.ajax({
                 url: "/demo/user/login",
-                data: _this.user,
+                data: JSON.stringify(_this.user),
                 type: "post",
                 dataType:"json",
                 timeout: 3*60*1000,
+                contentType: "application/json",
                 success: function(result){
+                    debugger
                     console.log(result);
-                    window.location.href = result;
+                    window.location.href = _this.user.url;
                 },
                 error: function (e) {
                     console.error(e);

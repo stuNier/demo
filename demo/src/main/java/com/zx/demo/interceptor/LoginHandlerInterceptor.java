@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Title: LoginHandlerInterceptor
- * Description: TODO 登录拦截
+ * Description: 登录拦截
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *

@@ -42,7 +42,7 @@ public class LoginController {
     }
 
     @ApiOperation("用户登出接口")
-    @GetMapping("/loginOut")
+    @PostMapping("/loginOut")
     public Object loginOut(HttpServletRequest request){
         loginService.loginOut(request);
         return ResponseEntity.ok("success");
