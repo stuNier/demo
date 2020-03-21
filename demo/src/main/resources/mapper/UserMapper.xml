@@ -8,7 +8,7 @@
     </resultMap>
 
     <select id="queryByAccount" resultMap="user" parameterType="java.lang.String">
-        select account, password from user where account = #{account}
+        select account, password from demo.user where account = #{account}
     </select>
 
 </mapper>
