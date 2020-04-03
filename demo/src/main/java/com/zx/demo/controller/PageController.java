@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,6 +29,12 @@ public class PageController {
 
     private Logger logger = LoggerFactory.getLogger(PageController.class);
 
+    /**
+     * 页面跳转
+     * @param page page
+     * @param request request
+     * @return modelandview
+     */
     @ApiOperation("传入跳转页面参数")
     @RequestMapping("/{page}")
     public ModelAndView toPage(@PathVariable String page, HttpServletRequest request){

@@ -1,7 +1,6 @@
 package com.zx.demo.interceptor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,12 +23,15 @@ import javax.servlet.http.HttpServletResponse;
  * date 2019/11/27 15:47
  */
 @Component
+@Slf4j
 public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     private final JedisPool jedisPool;
 
-    private Logger logger = LoggerFactory.getLogger(LoginHandlerInterceptor.class);
-
+    /**
+     * 构造函数
+     * @param jedisPool jedisPool
+     */
     @Autowired
     public LoginHandlerInterceptor(JedisPool jedisPool) {
         this.jedisPool = jedisPool;
@@ -66,7 +68,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        logger.info("postHandle");
     }
     /**
      * 整个请求处理完毕回调方法，即在视图渲染完毕时回调，如性能监控中我们可以在此记录结束时间并输出消耗时间，还可以进行一些资源清理，类似于try-catch-finally中的finall
@@ -74,7 +75,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
-        logger.info("afterCompletion");
     }
 
 }

@@ -1,0 +1,22 @@
+{
+  "mappings": {
+    "properties": {
+        "id": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        },
+        "age": {
+          "type": "long",
+          "index": "not_analyzed"
+        },
+        "address": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        }
+    }
+  }
+}
