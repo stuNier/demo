@@ -12,16 +12,12 @@ spring:
       cluster-name: elasticsearch
       repositories:
         enabled: true
-  <<<<<<< HEAD
-cluster-nodes: 192.168.2.100:9200
+      cluster-nodes: 192.168.2.100:9200
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://172.25.8.133:3306/test?serverTimezone=UTC
 #    username: root
 #    password: 123456
-  =======
-cluster-nodes: 172.25.8.133:9200
-  >>>>>>> 64b012ab3ff49c52753f1af87c01cefd129b9ea0
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://127.0.0.1:5432/demo
