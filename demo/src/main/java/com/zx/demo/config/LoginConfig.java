@@ -22,6 +22,10 @@ public class LoginConfig implements WebMvcConfigurer{
 
     private final LoginHandlerInterceptor loginHandlerInterceptor;
 
+    /**
+     * 登录配置
+     * @param loginHandlerInterceptor loginHandlerInterceptor
+     */
     @Autowired
     public LoginConfig(LoginHandlerInterceptor loginHandlerInterceptor) {
         this.loginHandlerInterceptor = loginHandlerInterceptor;

@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * Title: User
- * Description: TODO
+ * Description: user
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *

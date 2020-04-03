@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Title: GlobalValue
- * Description: TODO
+ * Description: GlobalValue
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *

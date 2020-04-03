@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * Title: UserMapper
- * Description: TODO
+ * Description: UserMapper
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -16,6 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     /**
+     * 查询
      * @param account 账号
      * @return User
      * author: zhengxin@thunisoft.com

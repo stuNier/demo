@@ -1,6 +1,6 @@
 package com.zx.demo.dao.es;
 
-import com.zx.demo.bean.Student;
+import com.zx.demo.bean.es.Student;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +17,4 @@ import org.springframework.stereotype.Component;
 @Component
 public interface StudentRepository extends ElasticsearchRepository<Student, Long> {
 
-    /**
-     * @param name name
-     * @return
-     * @author: zhengxin-3@thunisoft.com
-     * date: 20-03-20 11:39
-     * @version 1.0
-     */
-    Student findByName(String name);
 }

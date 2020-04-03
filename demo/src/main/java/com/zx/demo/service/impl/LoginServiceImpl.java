@@ -1,6 +1,7 @@
 package com.zx.demo.service.impl;
 
 import com.zx.demo.bean.User;
+import com.zx.demo.enums.TimeEnum;
 import com.zx.demo.service.ILoginService;
 import com.zx.demo.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,11 @@ public class LoginServiceImpl implements ILoginService {
 
     private final IUserService userService;
 
+    /**
+     * 构造函数
+     * @param jedisPool jedisPool
+     * @param userService userService
+     */
     @Autowired
     public LoginServiceImpl(JedisPool jedisPool, IUserService userService) {
         this.jedisPool = jedisPool;
@@ -50,7 +56,7 @@ public class LoginServiceImpl implements ILoginService {
         Jedis jedis = jedisPool.getResource();
         String token = DigestUtils.md5Hex(user.getAccount()+new Date().toString());
         jedis.set(token, user.getAccount());
-        jedis.expire(token, 600);
+        jedis.expire(token, TimeEnum.TWELVE_MINUTES.getCode());
         jedis.close();
         Cookie cookie = new Cookie("userAccount",token);
         cookie.setHttpOnly(true);
