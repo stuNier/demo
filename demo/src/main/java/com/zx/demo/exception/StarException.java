@@ -1,8 +1,8 @@
 package com.zx.demo.exception;
 
 /**
- * Title: StudentException
- * Description: StudentException
+ * Title: StarException
+ * Description: StarException
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -10,20 +10,20 @@ package com.zx.demo.exception;
  * @version 1.0
  * date 2020/3/23 15:32
  */
-public class StudentException extends Exception{
+public class StarException extends Exception{
     /**
-     * StudentException
+     * StarException
      * @param message m
      */
-    public StudentException(String message) {
+    public StarException(String message) {
         super(message);
     }
 
     /**
-     * StudentException
+     * StarException
      * @param cause c
      */
-    public StudentException(Throwable cause) {
+    public StarException(Throwable cause) {
         super(cause);
     }
 }

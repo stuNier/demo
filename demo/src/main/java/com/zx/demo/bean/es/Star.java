@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * Title: Student
- * Description: Student
+ * Title: Star
+ * Description: Star
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -21,8 +21,8 @@ import java.io.Serializable;
  * date 2020/3/20 11:10
  */
 @Data
-@Document(indexName = "school")
-public class Student implements Serializable {
+@Document(indexName = "showbiz")
+public class Star implements Serializable {
     /**
      * id主键
      */

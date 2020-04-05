@@ -1,6 +1,6 @@
 package com.zx.demo.controller;
 
-import com.zx.demo.bean.es.Student;
+import com.zx.demo.bean.es.Star;
 import com.zx.demo.util.PoiUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class ExcelController {
     public Object readExcel(MultipartFile file){
         String[] fields = {"name","age", "address"};
         try {
-            return poiUtil.importExcel(file.getInputStream(), Student.class, 0, fields);
+            return poiUtil.importExcel(file.getInputStream(), Star.class, 0, fields);
         } catch (IOException e) {
             log.info("错误信息{}", e);
         }
