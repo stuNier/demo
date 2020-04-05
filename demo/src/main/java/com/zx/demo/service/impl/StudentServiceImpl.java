@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
-public class StudentService implements IStudentService {
+public class StudentServiceImpl implements IStudentService {
 
     private String[] fields = {"name","age", "address"};
 

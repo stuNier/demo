@@ -1,13 +1,18 @@
 package com.zx.demo.util;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import com.zx.demo.enums.ExcelTypeEnum;
 import com.zx.demo.model.ExcelModel;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.result.ExcelImportResult;
 
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -58,5 +63,39 @@ public class PoiUtil {
             return null;
         }
         return excelModel;
+    }
+
+    /**
+     * 导出excel结果
+     * @param fileName 文件名
+     * @param sheetName sheetName
+     * @param objectClass objectClass
+     * @param data 数据
+     * @param <T> 泛型
+     */
+    public<T> void exportExcel(String fileName, String sheetName, Class<T> objectClass, List<T> data){
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(fileName);
+        } catch (FileNotFoundException e) {
+            log.error("文件不存在，错误信息{}", e.getMessage());
+        }
+        ExportParams exportParams = new ExportParams();
+        exportParams.setType(ExcelType.XSSF);
+        if(fileName.endsWith(ExcelTypeEnum.XLSX.getStr())||fileName.endsWith(ExcelTypeEnum.XLSX.getStr().toLowerCase())){
+            exportParams.setType(ExcelType.XSSF);
+        }else if(fileName.endsWith(ExcelTypeEnum.XLS.getStr())||fileName.endsWith(ExcelTypeEnum.XLS.getStr().toLowerCase())){
+            exportParams.setType(ExcelType.HSSF);
+        }else {
+            log.error("文件名错误");
+            return;
+        }
+        exportParams.setSheetName(sheetName);
+        Workbook workbook = ExcelExportUtil.exportExcel(exportParams, objectClass, data);
+        try {
+            workbook.write(fileOutputStream);
+        } catch (IOException e) {
+            log.error("错误信息{}", e.getMessage());
+        }
     }
 }
