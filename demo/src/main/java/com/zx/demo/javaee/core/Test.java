@@ -16,7 +16,8 @@ public class Test {
         a = (short) (a+1);
         System.out.println(a);
         String str = "str";
-        switch (a){
+        byte b = 2;
+        switch (b){
             case 1 :
                 System.out.println("1");
                 break;
