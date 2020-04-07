@@ -1,12 +1,12 @@
 package com.zx.demo.service.impl;
 
-import com.zx.demo.bean.es.Student;
-import com.zx.demo.dao.es.StudentRepository;
+import com.zx.demo.bean.es.Star;
+import com.zx.demo.dao.es.StarRepository;
 import com.zx.demo.enums.ResultStatusEnum;
-import com.zx.demo.exception.StudentException;
+import com.zx.demo.exception.StarException;
 import com.zx.demo.model.ExcelModel;
 import com.zx.demo.model.GlobalResponseModel;
-import com.zx.demo.service.IStudentService;
+import com.zx.demo.service.IStarService;
 import com.zx.demo.util.PoiUtil;
 import com.zx.demo.util.SnowFlakeUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
- * Title: StudentService
- * Description: IStudentService
+ * Title: StarServiceImpl
+ * Description: StarServiceImpl
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
-public class StudentService implements IStudentService {
+public class StarServiceImpl implements IStarService {
 
     private String[] fields = {"name","age", "address"};
 
@@ -40,59 +40,59 @@ public class StudentService implements IStudentService {
     private PoiUtil poiUtil;
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StarRepository starRepository;
 
     @Override
-    public GlobalResponseModel searchStudentById(Long id) throws StudentException {
+    public GlobalResponseModel searchStarById(Long id) throws StarException {
         log.info(id.toString());
-        Optional<Student> student = studentRepository.findById(id);
-        if(student.isPresent()){
+        Optional<Star> star = starRepository.findById(id);
+        if(star.isPresent()){
             return GlobalResponseModel.builder().code(ResultStatusEnum.SUCCESS.getCode())
                     .message(ResultStatusEnum.SUCCESS.getMessage())
-                    .data(student.get()).build();
+                    .data(star.get()).build();
         }else {
-            throw new StudentException(ResultStatusEnum.ID_NOT_EXIST.getMessage());
+            throw new StarException(ResultStatusEnum.ID_NOT_EXIST.getMessage());
         }
     }
 
     @Override
-    public GlobalResponseModel deleteStudentById(Long id) throws StudentException {
+    public GlobalResponseModel deleteStarById(Long id) throws StarException {
         log.info(id.toString());
-        Optional<Student> student = studentRepository.findById(id);
-        if(student.isPresent()){
-            studentRepository.deleteById(id);
+        Optional<Star> star = starRepository.findById(id);
+        if(star.isPresent()){
+            starRepository.deleteById(id);
             return GlobalResponseModel.builder().code(ResultStatusEnum.SUCCESS.getCode())
                     .message(ResultStatusEnum.SUCCESS.getMessage())
                     .build();
         }else{
-            throw new StudentException(ResultStatusEnum.ID_NOT_EXIST.getMessage());
+            throw new StarException(ResultStatusEnum.ID_NOT_EXIST.getMessage());
         }
     }
 
     @Override
-    public GlobalResponseModel queryAllStudent() {
-        Iterable<Student> result = studentRepository.findAll();
+    public GlobalResponseModel queryAllStar() {
+        Iterable<Star> result = starRepository.findAll();
         return GlobalResponseModel.builder().code(ResultStatusEnum.SUCCESS.getCode())
                 .message(ResultStatusEnum.SUCCESS.getMessage())
                 .data(result).build();
     }
 
     @Override
-    public GlobalResponseModel deleteAllStudent() {
-        studentRepository.deleteAll();
+    public GlobalResponseModel deleteAllStar() {
+        starRepository.deleteAll();
         return GlobalResponseModel.builder().code(ResultStatusEnum.SUCCESS.getCode())
                 .message(ResultStatusEnum.SUCCESS.getMessage())
                 .build();
     }
 
     @Override
-    public GlobalResponseModel saveStudentList(MultipartFile file) {
+    public GlobalResponseModel saveStarList(MultipartFile file) {
         try {
-            ExcelModel<Student> excelModel = poiUtil.importExcel(file.getInputStream(), Student.class, 0, fields);
-            log.info("save student...");
-            for (Student student:excelModel.getDataList()){
-                student.setId(snowFlakeUtil.nextId());
-                studentRepository.save(student);
+            ExcelModel<Star> excelModel = poiUtil.importExcel(file.getInputStream(), Star.class, 0, fields);
+            log.info("save star...");
+            for (Star star:excelModel.getDataList()){
+                star.setId(snowFlakeUtil.nextId());
+                starRepository.save(star);
             }
             log.info("total:{}", excelModel.getDataList().size());
             return GlobalResponseModel.builder().code(ResultStatusEnum.SUCCESS.getCode())
