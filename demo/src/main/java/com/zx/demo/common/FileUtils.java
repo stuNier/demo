@@ -27,7 +27,6 @@ public class FileUtils {
      * 写文件
      * @param path 文件路径
      * @param data 数据
-     * @return 是否成功
      * @throws IOException 文件读写异常
      */
     public void write(String path, String data) throws IOException {
