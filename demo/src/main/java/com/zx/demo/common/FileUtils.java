@@ -1,7 +1,6 @@
 package com.zx.demo.common;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -11,7 +10,7 @@ import java.io.Writer;
 
 /**
  * Title: FileUtils
- * Description: TODO
+ * Description: FileUtils
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -20,9 +19,9 @@ import java.io.Writer;
  * @date 2019/10/16 11:14
  */
 @Component
+@Slf4j
 public class FileUtils {
 
-    private Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
     /**
      * 写文件
@@ -34,7 +33,7 @@ public class FileUtils {
     public void write(String path, String data) throws IOException {
         File file = createFile(path);
         if(file == null){
-            logger.info("文件路径为空");
+            log.info("文件路径为空");
             return;
         }
         Writer out = null;
@@ -42,13 +41,13 @@ public class FileUtils {
             out = new FileWriter(file);
             out.write(data);
         }catch (IOException e){
-            logger.info(e.getMessage());
+            log.info(e.getMessage());
         }finally {
             if(null != out){
                 try{
                     out.close();
                 }catch (IOException e){
-                    logger.info(e.getMessage());
+                    log.info(e.getMessage());
                 }
             }
         }
@@ -68,7 +67,7 @@ public class FileUtils {
                 //创建
                 file.createNewFile();
             } catch (IOException e) {
-                logger.info(e.getMessage());
+                log.info(e.getMessage());
                 return null;
             }
         }
