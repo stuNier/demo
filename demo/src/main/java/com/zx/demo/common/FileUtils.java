@@ -3,10 +3,7 @@ package com.zx.demo.common;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 
 /**
  * Title: FileUtils
@@ -24,12 +21,61 @@ public class FileUtils {
 
 
     /**
+     * 读取文件
+     * @param path path
+     * @return 结果
+     * @throws IOException IOException
+     */
+    public String readFile(String path) {
+        File filename = new File(path);
+        InputStream in = null;
+        InputStreamReader reader = null;
+        BufferedReader br = null;
+        StringBuilder result = new StringBuilder();
+        try {
+            in = new FileInputStream(filename);
+            reader = new InputStreamReader(in);
+            br = new BufferedReader(reader);
+            String line = br.readLine();
+            while (null != line) {
+                result.append(line);
+                line = br.readLine();
+            }
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }finally {
+            try{
+                if(null!=in){
+                    in.close();
+                }
+            }catch (Exception e){
+                log.error("错误信息{}",e);
+            }
+            try{
+                if(null!=reader){
+                    reader.close();
+                }
+            }catch (Exception e){
+                log.error("错误信息{}",e);
+            }
+            try{
+                if(null!=br){
+                    br.close();
+                }
+            }catch (Exception e){
+                log.error("错误信息{}",e);
+            }
+        }
+        return result.toString();
+    }
+
+    /**
      * 写文件
      * @param path 文件路径
      * @param data 数据
      * @throws IOException 文件读写异常
      */
-    public void write(String path, String data) throws IOException {
+    public void write(String path, String data) {
         File file = createFile(path);
         if(file == null){
             log.info("文件路径为空");
@@ -61,16 +107,20 @@ public class FileUtils {
     public File createFile(String fileName){
         File file =new File(fileName);
         //判断文件是否存在 不存在就创建文件
+        boolean result = false;
         if (!file.exists()) {
             try {
                 //创建
-                file.createNewFile();
+                result = file.createNewFile();
             } catch (IOException e) {
-                log.info(e.getMessage());
+                log.error(e.getMessage());
                 return null;
             }
         }
-        return file;
+        if(result){
+            return file;
+        }
+        return null;
     }
 
 }
