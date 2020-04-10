@@ -1,4 +1,4 @@
-package com.zx.demo.common;
+package com.zx.demo.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,8 +17,11 @@ import java.io.*;
  */
 @Component
 @Slf4j
-public class FileUtils {
+public final class FileUtils {
 
+    private FileUtils(){
+
+    }
 
     /**
      * 读取文件
@@ -26,7 +29,7 @@ public class FileUtils {
      * @return 结果
      * @throws IOException IOException
      */
-    public String readFile(String path) {
+    public static String readFile(String path) {
         File filename = new File(path);
         InputStream in = null;
         InputStreamReader reader = null;
@@ -39,6 +42,7 @@ public class FileUtils {
             String line = br.readLine();
             while (null != line) {
                 result.append(line);
+                result.append("\n");
                 line = br.readLine();
             }
         }catch (Exception e){
@@ -75,7 +79,7 @@ public class FileUtils {
      * @param data 数据
      * @throws IOException 文件读写异常
      */
-    public void write(String path, String data) {
+    public static void write(String path, String data) {
         File file = createFile(path);
         if(file == null){
             log.info("文件路径为空");
@@ -104,7 +108,7 @@ public class FileUtils {
      * @param fileName 文件名
      * @return 是否成功
      */
-    public File createFile(String fileName){
+    public static File createFile(String fileName){
         File file =new File(fileName);
         //判断文件是否存在 不存在就创建文件
         boolean result = false;
