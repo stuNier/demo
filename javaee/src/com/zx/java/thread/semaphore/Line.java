@@ -4,7 +4,7 @@ import java.util.concurrent.Semaphore;
 
 /**
  * Title: Line
- * Description: TODO
+ * Description: TODO 多线程-排队
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *

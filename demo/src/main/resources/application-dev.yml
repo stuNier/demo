@@ -1,0 +1,33 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /demo
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      repositories:
+        enabled: true
+      cluster-nodes: 172.25.8.133:9300
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.25.8.133:3306/test?serverTimezone=UTC
+    username: root
+    password: 123456
+  thymeleaf:
+    cache: false
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    timeout: 300
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+#  config-location: classpath:config/sqlMapConfig.xml

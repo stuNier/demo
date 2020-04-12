@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="description" content="">
+    <title>im</title>
+    <link rel="shortcut icon" th:href="@{/img/im/icon/header.ico}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{/css/im/im.css}" />
+    <base th:href="@{/}" />
+</head>
+<body>
+    <div id="app">
+        <label>
+            <select v-model="form.userId">
+                <option value="A">A</option>
+                <option value="B">B</option>
+            </select>
+        </label>
+        <input type="text" v-model="form.message"/>
+        <button @click="submit">提交</button>
+
+    </div>
+</body>
+<script type="text/javascript" th:src="@{/js/common/vue.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/common/jquery-1.12.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/im/login.js}"></script>
+</html>

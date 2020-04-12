@@ -2,7 +2,7 @@ package com.zx.java.sudoku;
 
 /**
  * Title: Sudoku
- * Description: TODO
+ * Description: TODO 数独
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -36,14 +36,14 @@ public class Sudoku {
         }
     }
 
-    private byte getRandom(){
-        return  0;
-    }
-
     /**
      * 解数独
      */
     public void solution(){
+    }
+
+    private byte getRandom(){
+        return  1;
     }
 
     /**

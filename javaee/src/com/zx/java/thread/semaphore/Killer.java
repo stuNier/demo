@@ -4,7 +4,7 @@ import java.util.concurrent.Semaphore;
 
 /**
  * Title: Killer
- * Description: TODO
+ * Description: TODO 杀手多线程-信号量
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
