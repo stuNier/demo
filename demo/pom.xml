@@ -152,6 +152,12 @@
             <exclusions></exclusions>
             <version>2.1.1.RELEASE</version>
         </dependency>
+        <!--log4jdbc-->
+        <dependency>
+            <groupId>com.googlecode.log4jdbc</groupId>
+            <artifactId>log4jdbc</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 
     <!--Spring Cloud依赖-->
