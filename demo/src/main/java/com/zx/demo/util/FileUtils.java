@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Title: FileUtils
@@ -21,6 +24,156 @@ public final class FileUtils {
 
     private FileUtils(){
 
+    }
+
+    private static final String SLASH = "\\";
+
+    private static final String ALL_FILE_SUFFIX = ".*";
+
+    /**
+     * 生成压缩文件
+     * @param srcPath 原路径
+     * @param desPath 目标路径
+     */
+    public static void createdZipFile(String srcPath, String desPath){
+        if(desPath.endsWith(SLASH)){
+            desPath = desPath.substring(0,desPath.length() - SLASH.length());
+        }
+        if(!srcPath.endsWith(SLASH)){
+            srcPath = srcPath+SLASH;
+        }
+        List<String> fileNames = fileFolder(srcPath, ".exe");
+        FileOutputStream outputStream = null;
+        ZipOutputStream zipOutputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        FileInputStream inputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        int zipRes;
+
+        try {
+            outputStream = new FileOutputStream(desPath+SLASH+desPath.substring(desPath.lastIndexOf(SLASH)+1)+".zip");
+            zipOutputStream = new ZipOutputStream(outputStream);
+            bufferedOutputStream = new BufferedOutputStream(zipOutputStream);
+            Iterator<String> iterable = fileNames.iterator();
+            while (iterable.hasNext()) {
+                String fileName = iterable.next();
+                inputStream = new FileInputStream(fileName);
+                bufferedInputStream = new BufferedInputStream(inputStream);
+                zipOutputStream.putNextEntry(new ZipEntry(fileName.substring(fileName.lastIndexOf(SLASH)+1)));
+                while ((zipRes = bufferedInputStream.read()) != -1) {
+                    bufferedOutputStream.write(zipRes);
+                }
+                bufferedOutputStream.flush();
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }finally {
+            if(null!=bufferedOutputStream){
+                try {
+                    bufferedOutputStream.close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            }
+            if(null!=bufferedInputStream){
+                try {
+                    bufferedInputStream.close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            }
+            if(null!=inputStream){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            }
+            if(null!=zipOutputStream){
+                try {
+                    zipOutputStream.close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            }
+            if(null!=outputStream){
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 复制文件
+     * @param src 来源
+     * @param des 目标
+     */
+    public static void fileCopy(String src, String des){
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try{
+            inputStream = new FileInputStream(src);
+            outputStream = new FileOutputStream(des);
+            //获取文件长度，并创建缓存
+            int fileLength = inputStream.available();
+            //读取文件，将文件内容放入缓存中
+            byte[] buffer = new byte[fileLength];
+            inputStream.read(buffer);
+            //将缓存的内容写入目标文件
+            outputStream.write(buffer);
+        } catch (IOException e){
+            log.error(e.getMessage());
+        }
+        finally {
+            if(null!=inputStream){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            }
+            if(null!=outputStream){
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * 读取文件夹
+     * @param folderPath 文件夹路径
+     */
+    public static List<String> fileFolder(String folderPath, String suffix){
+        if(ALL_FILE_SUFFIX.equals(suffix)){
+            suffix = "";
+        }
+        File folder = new File(folderPath);
+        File[] fileList = folder.listFiles();
+        List<String> result = new LinkedList<>();
+        if(null == fileList || fileList.length == 0){
+            return result;
+        }
+        for(File file : fileList){
+            if(file.isDirectory()){
+                fileFolder(file.getAbsolutePath(), suffix);
+            }
+            if(null!=suffix && !ALL_FILE_SUFFIX.equals(suffix)){
+                if(file.getName().endsWith(suffix)){
+                    result.add(file.getAbsolutePath());
+                }
+            }else{
+                result.add(file.getAbsolutePath());
+            }
+
+        }
+        return result;
     }
 
     /**
@@ -45,7 +198,7 @@ public final class FileUtils {
                 result.append("\n");
                 line = br.readLine();
             }
-        }catch (Exception e){
+        } catch (IOException e){
             log.error(e.getMessage());
         }finally {
             try{
