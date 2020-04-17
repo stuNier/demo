@@ -19,7 +19,10 @@ import java.util.regex.Pattern;
  */
 public class Test {
 
-    public static final String[] ZDLX = {
+    /**
+     * 字段类型数组
+     */
+    private static final String[] ZDLX = {
             "char","c_",
             "text","c_",
             "timestamp","dt_",
@@ -29,6 +32,9 @@ public class Test {
             "bool","c_"
     };
 
+    /**
+     * 创建抽数sql
+     */
     @org.junit.Test
     public void createSqlFile(){
         String[] fileNames = {"sft_sqjz_shzyz","sft_sqjz_sfbry","sft_sqjz_shgzz","sft_sqjz_sfbjg"};
@@ -39,7 +45,7 @@ public class Test {
     }
 
     /**
-     * 表中文名重复 TODO
+     * 修改表命名 TODO 表中文名重复
      */
     @org.junit.Test
     public void biaozhushi(){
@@ -53,7 +59,7 @@ public class Test {
     }
 
     /**
-     * 合并sql文件
+     * 合并文件夹下的所有sql语句为单sql文件
      */
     @org.junit.Test
     public void hebingsql(){
@@ -70,12 +76,12 @@ public class Test {
 
 
     /**
-     * 修改中软云上的表注释为简拼
+     * 修改文件下所有的sql文件的字段命名规则为中文首拼
      */
     @org.junit.Test
     public void test(){
         String folderPath = "C:\\Users\\lenovo\\Desktop\\b北京华宇\\06_贵州大数据\\04数据\\现场表结构\\新增社区矫正_修改为中文简拼";
-        List<String> fileNames = FileUtils.fileFolder(folderPath,".*");
+        List<String> fileNames = FileUtils.fileFolder(folderPath,".sql");
         Iterator<String> iterator = fileNames.iterator();
         while (iterator.hasNext()){
             String filename = iterator.next();
@@ -87,8 +93,16 @@ public class Test {
     }
 
 
+    /**
+     * 修改文本
+     * @param content 文本
+     * @return 修改字段为中文简拼的结果文本（建表语句）
+     */
     public String getRow(String content){
         List<Row> rowList = new LinkedList<>();
+        /**
+         * 匹配建表语句中有中文注释的字段
+         */
         String patternStr = "COMMENT ON COLUMN ?((.*?) IS (.*?))(;+)";
         Pattern pattern = Pattern.compile(patternStr);
         Matcher matcher = pattern.matcher(content);
@@ -105,6 +119,9 @@ public class Test {
             row.setOldStr(entry.getKey());
             row.setComment(entry.getValue());
             StringBuilder targStr = new StringBuilder();
+            /**
+             * 通过建表语句匹配字段，并匹配字段后面的字段类型来确定字段的类型
+             */
             for (int i=0; i<ZDLX.length; i+=2){
                 int index = content.indexOf(("\""+entry.getKey())+"\"");
                 if(content.substring(index,
@@ -115,6 +132,9 @@ public class Test {
                     break;
                 }
             }
+            /**
+             * 根据字段的描述确定字段的首拼
+             */
             if(entry.getValue()==null || "".equals(entry.getValue())){
                 targStr.append(PingYinUtil.getFirstSpell(entry.getKey()));
             }else {
@@ -123,6 +143,9 @@ public class Test {
             row.setTarStr(targStr.toString());
             rowList.add(row);
         }
+        /**
+         * 修改中文首拼重复的字段命名 重复的在后一个尾部添加1
+         */
         for(int i=0; i<rowList.size()-1; i++){
             for(int j=i+1; j<rowList.size(); j++){
                 if(rowList.get(i).getTarStr().equals(rowList.get(j).getTarStr())||
@@ -131,6 +154,9 @@ public class Test {
                 }
             }
         }
+        /**
+         * 替换原本字段的命名为中文首拼
+         */
         for (Row row:rowList){
             content = content.replaceAll("\""+row.getOldStr()+"\"", "\""+row.getTarStr()+"\"");
         }
@@ -138,12 +164,16 @@ public class Test {
     }
 
     /**
-     * 替换括号字符
+     * 匹配括号，如果字段描述中有括号描述，去掉括号中的内容（包括括号）
+     * 匹配字段描述是否中部有特殊字符，如果有则去掉特殊字符及其后面描述
      * @param src 源文本
      * @return 目标文本
      */
     public String replace(String src){
         StringBuilder stringBuilder = new StringBuilder(src);
+        /**
+         * 匹配英文括号中的文本
+         */
         String patternStr = "(\\([^\\)]*\\))";
         Pattern pattern = Pattern.compile(patternStr);
         Matcher matcher = pattern.matcher(stringBuilder.toString());
@@ -153,6 +183,9 @@ public class Test {
             stringBuilder.replace(start,
                     start+length,"");
         }
+        /**
+         * 匹配特殊字符
+         */
         String tszfPattern = "[0-9]|：|，|（|；";
         pattern = Pattern.compile(tszfPattern);
         matcher = pattern.matcher(stringBuilder.toString());
