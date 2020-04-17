@@ -254,7 +254,19 @@ public final class FileUtils {
             }
         }
     }
-
+    /**
+     * 写文件
+     * @param path 文件路径
+     * @param data 数据
+     * @throws IOException 文件读写异常
+     */
+    public static void coverWrite(String path, String data) {
+        File file = new File(path);
+        if(file.exists()){
+            file.delete();
+        }
+        write(path, data);
+    }
 
     /**
      * 创建文件
