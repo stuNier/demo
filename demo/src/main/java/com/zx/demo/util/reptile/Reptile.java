@@ -28,6 +28,9 @@ public class Reptile {
 
     private List<String> resultList;
 
+    /**
+     * 构造
+     */
     public Reptile() {
         resultList = new LinkedList<>();
     }
@@ -74,6 +77,7 @@ public class Reptile {
 
     /**
      * 匹配结果
+     * @param url url
      * @param patternStr 正则表达式
      */
     public void regexString(String url, String patternStr) {

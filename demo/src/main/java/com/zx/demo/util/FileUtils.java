@@ -149,6 +149,8 @@ public final class FileUtils {
     /**
      * 读取文件夹
      * @param folderPath 文件夹路径
+     * @param suffix 文件后缀
+     * @return 文件名列表
      */
     public static List<String> fileFolder(String folderPath, String suffix){
         if(ALL_FILE_SUFFIX.equals(suffix)){
@@ -263,7 +265,11 @@ public final class FileUtils {
     public static void coverWrite(String path, String data) {
         File file = new File(path);
         if(file.exists()){
-            file.delete();
+            if(file.delete()){
+                log.info("删除文件");
+            }else {
+                log.info("已存在文件，删除失败");
+            }
         }
         write(path, data);
     }

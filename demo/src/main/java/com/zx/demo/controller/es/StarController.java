@@ -84,6 +84,11 @@ public class StarController {
         return starService.deleteAllStar();
     }
 
+    /**
+     * 保存所有
+     * @param file 文件
+     * @return 操作结果
+     */
     @PostMapping("/save/all")
     public GlobalResponseModel readExcel(MultipartFile file){
         if(file.isEmpty()){
