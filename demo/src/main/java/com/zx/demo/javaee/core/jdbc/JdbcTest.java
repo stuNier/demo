@@ -1,5 +1,6 @@
 package com.zx.demo.javaee.core.jdbc;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.sql.*;
@@ -14,6 +15,7 @@ import java.sql.*;
  * @version 1.0
  * date 2020/4/14 11:19
  */
+@Slf4j
 public class JdbcTest {
 
     @Test
@@ -45,20 +47,20 @@ public class JdbcTest {
             callableStatement.executeBatch();
             connection.commit();
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            log.error("{}",e);
         } finally {
             if(null!=connection){
                 try {
                     connection.close();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                } catch (SQLException e) {
+                    log.error("{}",e);
                 }
             }
             if(null!=callableStatement){
                 try {
                     callableStatement.close();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                } catch (SQLException e) {
+                    log.error("{}",e);
                 }
             }
         }

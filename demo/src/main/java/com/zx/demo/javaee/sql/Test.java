@@ -125,9 +125,8 @@ public class Test {
             for (int i=0; i<ZDLX.length; i+=2){
                 int index = content.indexOf(("\""+entry.getKey())+"\"");
                 if(content.substring(index,
-                        index+entry.getKey()
-                                .length()+12)
-                        .indexOf(ZDLX[i])>=0){
+                        index + entry.getKey()
+                                .length() + 12).contains(ZDLX[i])){
                     targStr.append(ZDLX[i+1]);
                     break;
                 }
