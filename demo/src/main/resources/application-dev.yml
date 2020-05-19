@@ -25,7 +25,7 @@ spring:
     host: 127.0.0.1
     port: 6379
     password: 123456
-    timeout: 3000ms
+    timeout: 3000
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
