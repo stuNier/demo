@@ -59,7 +59,7 @@ public class PoiUtil {
                 log.warn("错误数据列表\n{}", failList.toString());
             }
         } catch (Exception e) {
-            log.error("错误信息{}",e);
+            log.error("错误信息{}",e.getMessage());
             return null;
         }
         return excelModel;

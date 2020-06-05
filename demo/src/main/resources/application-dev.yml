@@ -27,9 +27,16 @@ spring:
     password: 123456
     timeout: 3000
 
+  rabbitmq:
+    username: guest
+    password: guest
+    host: 127.0.0.1
+    port: 5672
+
+
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
-#  config-location: classpath:config/sqlMapConfig.xml
+  config-location: classpath:config/sqlMapConfig.xml
 logging:
   level:
     root: info

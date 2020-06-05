@@ -35,4 +35,4 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
-#  config-location: classpath:config/sqlMapConfig.xml
+  config-location: classpath:config/sqlMapConfig.xml
