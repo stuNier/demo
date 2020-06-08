@@ -52,6 +52,7 @@ public interface BookMapper {
      * 查询
      *
      * @param id 查询参数
+     * @return book
      */
     Book selectBookById(int id);
 }

@@ -32,6 +32,19 @@ spring:
     password: guest
     host: 127.0.0.1
     port: 5672
+    listener:
+      simple:
+        #最小监听数
+        concurrency: 2
+        #最大监听数
+        max-concurrency: 2
+      direct:
+        #消费确认 出现异常等手动处理   手动确认
+        acknowledge-mode: manual
+    # 发布者返回
+    publisher-returns: true
+    # 开起发布者确认
+    publisher-confirms: true
 
 
 mybatis:

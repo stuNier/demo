@@ -1,7 +1,10 @@
 package com.zx.demo.controller.rabbitmq;
 
-import org.springframework.amqp.core.AmqpTemplate;
+import com.zx.demo.bean.mq.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,15 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
  * date 2020/6/5 15:41
  */
 @RestController
-@RequestMapping(value = "/rabbitmq")
+@RequestMapping(value = "/mq")
 public class RabbitMqController {
 
     @Autowired
-    private AmqpTemplate amqpTemplate;
+    private RabbitTemplate rabbitTemplate;
 
-    @RequestMapping("sendTwo")
-    public void sendTwo(String mes){
-        amqpTemplate.convertAndSend("topic","topic.name.a",mes);
-        amqpTemplate.convertAndSend("topic","topic.a",mes);
+    @PostMapping("/msg")
+    public Object senAndRec(@RequestBody Message message) {
+        rabbitTemplate.convertAndSend(message.getExchangeName(), message.getRouterKey(), message.getMessage());
+        return "success";
     }
 }

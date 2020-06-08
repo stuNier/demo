@@ -1,13 +1,21 @@
 package com.zx.demo.listener;
 
+import com.rabbitmq.client.Channel;
+import com.zx.demo.bean.mq.Message;
+import com.zx.demo.config.RabbitConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.AmqpHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Title: RabbitmqListener
- * Description: RabbitmqListener
+ * Description: 消费者
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -19,16 +27,50 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitmqListener {
 
-    @RabbitListener(queues = "topic.qune")
-    @RabbitHandler
-    public void process(String mess) {
-        log.info("我是topic.qune的消费者接收到的消息为 ：{}", mess);
+    /**
+     * 消费者获取消息 队列1
+     *
+     * @param msg 消息
+     */
+    @RabbitListener(queues = RabbitConfig.QUEUE_FIRST)
+    public void processMessage1(String msg) {
+        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.QUEUE_FIRST, msg);
     }
 
-    @RabbitListener(queues = "topic.okong")
-    @RabbitHandler
-    public void okong(String mess) {
-        log.info("我是topic.okong的消费者接收到的消息为：{}", mess);
+    /**
+     * 消费者获取消息 队列2
+     *
+     * @param msg 消息
+     */
+    @RabbitListener(queues = RabbitConfig.QUEUE_SECEND)
+    public void processMessage2(String msg) {
+        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.QUEUE_SECEND, msg);
+    }
+
+    /**
+     * order消息消费者
+     *
+     * @param msg msg
+     */
+    @RabbitListener(queues = RabbitConfig.QUEUE_ORDER)
+    public void orderMessageListener(String msg, Channel channel, @Headers Map<String, Object> map) {
+        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.QUEUE_ORDER, msg);
+        if("error".equals(msg)){
+            try {
+                /** b1 false不在重回队列 */
+                channel.basicNack((Long) map.get(AmqpHeaders.DELIVERY_TAG), false, false);
+                log.info("否认消息");
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }else{
+            try {
+                channel.basicAck((Long) map.get(AmqpHeaders.DELIVERY_TAG), false);
+                log.info("确认消息");
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
     }
 
 }
