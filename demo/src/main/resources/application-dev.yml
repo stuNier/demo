@@ -51,4 +51,4 @@ mybatis:
   config-location: classpath:config/sqlMapConfig.xml
 logging:
   level:
-    root: debug
+    root: info
