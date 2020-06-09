@@ -38,12 +38,11 @@ spring:
         concurrency: 2
         #最大监听数
         max-concurrency: 2
-      direct:
         #消费确认 出现异常等手动处理   手动确认
         acknowledge-mode: manual
-    # 发布者返回
+    # 发送回调
     publisher-returns: true
-    # 开起发布者确认
+    # 发送确认
     publisher-confirms: true
 
 
@@ -52,4 +51,4 @@ mybatis:
   config-location: classpath:config/sqlMapConfig.xml
 logging:
   level:
-    root: info
+    root: debug

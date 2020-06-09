@@ -23,13 +23,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class AopServiceConfig {
 
+    /**
+     * 切点
+     */
     @Pointcut("execution(* com.zx.demo.service.impl..*.*(..))")
     public void executeService() {}
 
+    /**
+     * before
+     * @param joinPoint joinPoint
+     */
     @Before("executeService()")
     public void before(JoinPoint joinPoint){
     }
 
+    /**
+     * after
+     * @param joinPoint joinPoint
+     */
     @After("executeService()")
     public void after(JoinPoint joinPoint){
     }

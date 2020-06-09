@@ -1,10 +1,6 @@
 package com.zx.demo.config;
 
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,55 +17,77 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    public static final String QUEUE_FIRST = "queue1";
+    public static final String MANUAL_QUEUE = "manualQueue";
+    public static final String RETRY_QUEUE = "retryQueue";
+    public static final String FILED_QUEUE = "filedQueue";
 
-    public static final String QUEUE_SECEND = "queue2";
+    /** 正常的交换器 */
+    private static final String MANUAL_EXCHANGE = "manualExchange";
+    /** 重试交换器 */
+    private static final String RETRY_EXCHANGE = "retryExchange";
+    /** 失败交换器 */
+    private static final String FILED_EXCHANGE = "filedExchange";
 
-    public static final String QUEUE_ORDER = "orderQueue";
-
-    private static final String EXCHANGE_NAME = "topicExchange";
-
-    private static final String ORDER_ROUTING_KEY = "order.#";
+    private static final String MANUAL_ROUTING_KEY = "manual.#";
+    private static final String RETRY_ROUTING_KEY = "retry.#";
+    private static final String FILED_ROUTING_KEY = "filed.#";
 
     /**
-     * 队列1
+     * MANUAL_QUEUE true表示持久化该队列
      *
      * @return 队列
      */
     @Bean
-    public Queue queue1() {
-        // true表示持久化该队列
-        return new Queue(QUEUE_FIRST, true);
+    public Queue manualQueue() {
+        return new Queue(MANUAL_QUEUE, true);
     }
 
     /**
-     * 队列2
+     * RETRY_QUEUE
      *
      * @return 队列
      */
     @Bean
-    public Queue queue2() {
-        return new Queue(QUEUE_SECEND, true);
+    public Queue retryQueue() {
+        return new Queue(RETRY_QUEUE, true);
     }
 
     /**
-     * order queue
+     * FILED_QUEUE
      *
-     * @return order queue
+     * @return 队列
      */
     @Bean
-    public Queue orderQueue() {
-        return new Queue(QUEUE_ORDER, true);
+    public Queue filedQueue() {
+        return new Queue(FILED_QUEUE, true);
     }
 
     /**
      * 声明交互器
      *
-     * @return topicExchange
+     * @return 正常的交换器
      */
     @Bean
-    TopicExchange topicExchange() {
-        return new TopicExchange(EXCHANGE_NAME);
+    TopicExchange manualExchange() {
+        return new TopicExchange(MANUAL_EXCHANGE);
+    }
+
+    /**
+     * 声明重试交换器
+     * @return 重试交换器
+     */
+    @Bean
+    TopicExchange retryExchange(){
+        return new TopicExchange(RETRY_EXCHANGE);
+    }
+
+    /**
+     * 失败交换器
+     * @return 失败交换器
+     */
+    @Bean
+    TopicExchange failedExchange(){
+        return new TopicExchange(FILED_EXCHANGE);
     }
 
     /**
@@ -78,8 +96,8 @@ public class RabbitConfig {
      * @return 绑定
      */
     @Bean
-    public Binding binding1() {
-        return BindingBuilder.bind(queue1()).to(topicExchange()).with("router.*");
+    public Binding bindingManual() {
+        return BindingBuilder.bind(manualQueue()).to(manualExchange()).with(MANUAL_ROUTING_KEY);
     }
 
     /**
@@ -88,24 +106,17 @@ public class RabbitConfig {
      * @return 绑定
      */
     @Bean
-    public Binding binding2() {
-        return BindingBuilder.bind(queue2()).to(topicExchange()).with("router.#");
+    public Binding bindingRetry() {
+        return BindingBuilder.bind(retryQueue()).to(manualExchange()).with(RETRY_ROUTING_KEY);
     }
 
     /**
      * order 绑定
+     *
      * @return 绑定
      */
     @Bean
-    public Binding orderBinding(){
-        return BindingBuilder.bind(orderQueue()).to(topicExchange()).with(ORDER_ROUTING_KEY);
-    }
-
-    @Bean
-    public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(ConnectionFactory connectionFactory){
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory);
-        factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
-        return factory;
+    public Binding bindingFiled() {
+        return BindingBuilder.bind(filedQueue()).to(manualExchange()).with(FILED_ROUTING_KEY);
     }
 }

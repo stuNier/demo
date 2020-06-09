@@ -1,17 +1,13 @@
 package com.zx.demo.listener;
 
 import com.rabbitmq.client.Channel;
-import com.zx.demo.bean.mq.Message;
 import com.zx.demo.config.RabbitConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.support.AmqpHeaders;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Title: RabbitmqListener
@@ -28,49 +24,51 @@ import java.util.Map;
 public class RabbitmqListener {
 
     /**
-     * 消费者获取消息 队列1
-     *
-     * @param msg 消息
-     */
-    @RabbitListener(queues = RabbitConfig.QUEUE_FIRST)
-    public void processMessage1(String msg) {
-        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.QUEUE_FIRST, msg);
-    }
-
-    /**
-     * 消费者获取消息 队列2
-     *
-     * @param msg 消息
-     */
-    @RabbitListener(queues = RabbitConfig.QUEUE_SECEND)
-    public void processMessage2(String msg) {
-        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.QUEUE_SECEND, msg);
-    }
-
-    /**
-     * order消息消费者
-     *
+     * MANUAL_QUEUE
      * @param msg msg
+     * @param channel channel
+     * @param message message
+     * @throws IOException IOException
      */
-    @RabbitListener(queues = RabbitConfig.QUEUE_ORDER)
-    public void orderMessageListener(String msg, Channel channel, @Headers Map<String, Object> map) {
-        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.QUEUE_ORDER, msg);
-        if("error".equals(msg)){
-            try {
-                /** b1 false不在重回队列 */
-                channel.basicNack((Long) map.get(AmqpHeaders.DELIVERY_TAG), false, false);
-                log.info("否认消息");
-            } catch (IOException e) {
-                log.error(e.getMessage());
+    @RabbitListener(queues = RabbitConfig.MANUAL_QUEUE)
+    public void manualMessageListener(String msg, Channel channel, Message message) throws IOException {
+        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.MANUAL_QUEUE, msg);
+        if ("error".equals(msg)) {
+            if (message.getMessageProperties().getRedelivered()) {
+                channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
+                log.info("重试失败，不再会队列");
+            } else {
+                channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
+                log.info("否认消息，重试");
             }
-        }else{
-            try {
-                channel.basicAck((Long) map.get(AmqpHeaders.DELIVERY_TAG), false);
-                log.info("确认消息");
-            } catch (IOException e) {
-                log.error(e.getMessage());
-            }
+        } else {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+            log.info("确认消息");
         }
     }
 
+
+    /**
+     * RETRY_QUEUE
+     * @param msg msg
+     * @param channel channel
+     * @param message message
+     * @throws IOException IOException
+     */
+    @RabbitListener(queues = RabbitConfig.RETRY_QUEUE)
+    public void retryMessageListener(String msg, Channel channel, Message message) {
+        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.RETRY_QUEUE, msg);
+    }
+
+    /**
+     * FILED_QUEUE
+     * @param msg msg
+     * @param channel channel
+     * @param message message
+     * @throws IOException IOException
+     */
+    @RabbitListener(queues = RabbitConfig.FILED_QUEUE)
+    public void filedMessageListener(String msg, Channel channel, Message message) {
+        log.info("{} 接收到来自{}队列的消息：{}", Thread.currentThread().getName(), RabbitConfig.FILED_QUEUE, msg);
+    }
 }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Title: TestController
- * Description: TODO
+ * Title: RabbitMqController
+ * Description: RabbitMqController
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
@@ -25,6 +25,11 @@ public class RabbitMqController {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    /**
+     * 请求接口
+     * @param message message
+     * @return success
+     */
     @PostMapping("/msg")
     public Object senAndRec(@RequestBody Message message) {
         rabbitTemplate.convertAndSend(message.getExchangeName(), message.getRouterKey(), message.getMessage());

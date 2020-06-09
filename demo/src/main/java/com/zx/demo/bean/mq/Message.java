@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * Title: Message
- * Description: TODO
+ * Description: Message
  * Copyright: Copyright (c) 2007
  * Company 北京华宇信息技术有限公司
  *
