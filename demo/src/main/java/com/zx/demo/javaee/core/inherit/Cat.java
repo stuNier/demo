@@ -1,6 +1,5 @@
 package com.zx.demo.javaee.core.inherit;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Title: Cat

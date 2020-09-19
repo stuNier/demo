@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.demo.mapper.DemoMapper">
+
+    <resultMap id="demo" type="com.zx.demo.bean.Demo">
+        <id property="id" column="id"/>
+        <result property="des" column="des"/>
+    </resultMap>
+
+    <!--通过id查询demo 设置了-->
+    <select id="queryDemoById" resultMap="demo" parameterType="java.lang.Integer" flushCache="true">
+        select id, des from demo.demo where id = #{id} limit 1
+    </select>
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="demo">
+        select id, des from demo.demo
+    </select>
+
+    <!--插入demo实体列表-->
+    <insert id="insertDemoList" parameterType="java.util.List" useGeneratedKeys="false">
+        INSERT INTO demo.demo
+        (id,des)
+        values
+        <foreach collection="list" item="demo" index="index" separator=",">
+            (#{demo.id},
+            #{demo.des})
+        </foreach>
+    </insert>
+
+    <!--插入demo-->
+    <insert id="insertDemo" parameterType="com.zx.demo.bean.Demo">
+        INSERT INTO demo.demo(id, des) value(#{demo.id},#{demo.des})
+    </insert>
+
+    <update id="updateDemoById" parameterType="com.zx.demo.bean.Demo">
+        update demo.demo set des = concat(des,#{demo.des}) where id = #{demo.id}
+    </update>
+</mapper>

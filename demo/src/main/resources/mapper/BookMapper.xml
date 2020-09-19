@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.demo.mapper.BookMapper">
+
+    <!--书籍-->
+    <resultMap id="bookMap" type="com.zx.demo.bean.book.Book">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
+        <result property="price" column="price"/>
+        <result property="number" column="number"/>
+    </resultMap>
+
+    <!--插入-->
+    <insert id="insertBook" parameterType="com.zx.demo.bean.book.Book">
+        insert into
+            demo.book(`name`, `address`, `price`, `number`)
+        value (#{name},#{address},#{price},#{number})
+    </insert>
+
+    <!--批量插入-->
+    <insert id="insertBookList" parameterType="java.util.List">
+        insert into
+        demo.book(`name`, `address`, `price`, `number`)
+        values
+        <foreach collection="list" item="book" index="index" separator=",">
+            (#{book.name},
+            #{book.address},
+            #{book.price},
+            #{book.number})
+        </foreach>
+    </insert>
+
+    <!--通过id更新-->
+    <update id="updateBookById" parameterType="com.zx.demo.bean.book.Book">
+        update demo.book
+        set
+            `name` = #{name},
+            `address` = #{address},
+            `price` = #{price},
+            `number` = #{number}
+        where id = #{id}
+    </update>
+
+    <!--通过id更新数量-->
+    <update id="updateBookNumberById">
+        update demo.book
+        set
+            `number` = #{number}
+        where id = #{id}
+    </update>
+
+    <!--查询-->
+    <select id="selectBookById" parameterType="java.lang.Integer"
+        resultMap="bookMap">
+        SELECT
+        	`id`,
+        	`name`,
+        	`address`,
+        	`price`,
+        	`number`
+        FROM
+        	demo.book
+        where `id` = #{id}
+    </select>
+</mapper>

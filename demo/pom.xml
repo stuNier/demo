@@ -38,6 +38,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
+        <!--aop-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -107,7 +112,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.36.Final</version>
+            <version>4.1.42.Final</version>
         </dependency>
 
         <!--redis依赖-->
@@ -152,6 +157,24 @@
             <exclusions></exclusions>
             <version>2.1.1.RELEASE</version>
         </dependency>
+        <!--log4jdbc-->
+        <dependency>
+            <groupId>com.googlecode.log4jdbc</groupId>
+            <artifactId>log4jdbc</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!--拼音-->
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+
+        <!--RabbitMq-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
     </dependencies>
 
     <!--Spring Cloud依赖-->
@@ -164,13 +187,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--拼音-->
-            <dependency>
-                <groupId>com.belerweb</groupId>
-                <artifactId>pinyin4j</artifactId>
-                <version>2.5.1</version>
-            </dependency>
-
         </dependencies>
 
     </dependencyManagement>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.demo.mapper.BookMapper">
+
+    <!--order-->
+    <resultMap id="orderMap" type="com.zx.demo.bean.book.Order">
+        <id property="id" column="id"/>
+        <result property="userId" column="userId"/>
+        <result property="bookId" column="bookId"/>
+        <result property="unitPrice" column="unitPrice"/>
+        <result property="number" column="number"/>
+        <result property="createdTime" column="createdTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <!--插入order-->
+    <insert id="insertOrder" parameterType="com.zx.demo.bean.book.Order">
+        insert into
+            demo.order(`userId`,`bookId`,`unitPrice`,`number`,`createdTime`,`updateTime`,`status`)
+        value
+            (#{userId},#{bookId},#{unitPrice},#{number},#{createdTime},#{updateTime},#{status})
+    </insert>
+
+    <!--通过id删除order-->
+    <update id="deleteOrderById">
+        update demo.order
+        set
+            `updateTime` = now(),
+            `status` = '02'
+        where `id` = #{id}
+    </update>
+
+    <!--通过id更新order-->
+    <update id="updateOrderById" parameterType="com.zx.demo.bean.book.Order">
+        update demo.order
+        set
+            `number` = #{number},
+            `updateTime` = #{updateTime}
+        where `id` = #{id}
+    </update>
+
+    <!--通过id查询-->
+    <select id="selectOrderByid" resultMap="orderMap">
+        select `id`,`userId`,`bookId`,`unitPrice`,`number`,`createdTime`,`updateTime`,`status`
+        from demo.order
+        where `id` = #{id}
+        and `status` = #{status}
+    </select>
+
+    <!--通过userid查询-->
+    <select id="selectOrderListByUserId" resultMap="orderMap">
+        select `id`,`userId`,`bookId`,`unitPrice`,`number`,`createdTime`,`updateTime`,`status`
+        from demo.order
+        where `userId` = #{userId}
+        and `status` = #{status}
+    </select>
+</mapper>

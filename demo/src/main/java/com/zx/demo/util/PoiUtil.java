@@ -59,7 +59,7 @@ public class PoiUtil {
                 log.warn("错误数据列表\n{}", failList.toString());
             }
         } catch (Exception e) {
-            log.error("错误信息{}",e);
+            log.error("错误信息{}",e.getMessage());
             return null;
         }
         return excelModel;
@@ -79,6 +79,14 @@ public class PoiUtil {
             fileOutputStream = new FileOutputStream(fileName);
         } catch (FileNotFoundException e) {
             log.error("文件不存在，错误信息{}", e.getMessage());
+        }finally {
+            if(null!=fileOutputStream){
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    log.error("错误信息{}", e.getMessage());
+                }
+            }
         }
         ExportParams exportParams = new ExportParams();
         exportParams.setType(ExcelType.XSSF);

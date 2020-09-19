@@ -15,7 +15,7 @@ spring:
       cluster-nodes: 127.0.0.1:9300
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://172.25.8.133:3306/test?serverTimezone=UTC
+#    url: jdbc:mysql://172.25.8.133:3306/sql?serverTimezone=UTC
 #    username: root
 #    password: 123456
   datasource:
@@ -30,9 +30,9 @@ spring:
     host: 127.0.0.1
     port: 6379
     password:
-    timeout: 300
+    timeout: 3000ms
 
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
-#  config-location: classpath:config/sqlMapConfig.xml
+  config-location: classpath:config/sqlMapConfig.xml
